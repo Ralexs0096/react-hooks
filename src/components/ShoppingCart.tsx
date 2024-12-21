@@ -1,8 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useEffect, useState } from 'react';
+
+const PRICE = 15;
 
 const ShoppingCart = () => {
+  const [counter, setCounter] = useState(1);
+
+  useEffect(() => {
+    if (counter <= 0) {
+      setCounter(1);
+    }
+  }, [counter]);
+
   return (
     <Card className="max-w-md mx-auto p-4 shadow-lg">
       <CardHeader>
@@ -17,28 +28,42 @@ const ShoppingCart = () => {
           />
           <div>
             <h2 className="text-lg font-semibold">Vegeta Funko</h2>
-            <p className="text-gray-600">$14.99</p>
+            <p className="text-gray-600">${PRICE}</p>
           </div>
         </div>
         <div className="flex items-center space-x-4">
-          <Button variant="outline" onClick={() => undefined} className="w-10">
+          <Button
+            variant="outline"
+            onClick={() => setCounter(counter - 1)}
+            className="w-10"
+          >
             -
           </Button>
 
           <Input
             type="number"
-            value={0}
-            onChange={() => undefined}
+            name="counter"
+            value={counter}
+            onChange={(e) => {
+              const value = parseInt(e.target.value, 10);
+
+              setCounter(value > 0 ? value : 1);
+            }}
             className="w-16 text-center"
           />
 
-          <Button variant="outline" onClick={() => undefined} className="w-10">
+          {/* Method Reference */}
+          <Button
+            variant="outline"
+            onClick={() => setCounter((prev) => prev + 1)}
+            className="w-10"
+          >
             +
           </Button>
         </div>
         <div className="flex justify-between items-center">
           <p className="text-gray-600">Total:</p>
-          <p className="text-lg font-bold">$0</p>
+          <p className="text-lg font-bold">${counter * PRICE}</p>
         </div>
         <div className="flex justify-between space-x-4">
           <Button className="flex-grow">Checkout</Button>
