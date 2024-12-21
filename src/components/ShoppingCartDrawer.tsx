@@ -5,21 +5,25 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger
+  DrawerTitle
 } from '@/components/ui/drawer';
 import { Button } from './ui/button';
+import { useEffect, useState } from 'react';
 
-const ShoppingCartDrawer = () => {
+const ShoppingCartDrawer = ({ onClose }: { onClose: () => void }) => {
+  const [counter, setCounter] = useState(0);
+
+  // Side-Effects
+  useEffect(() => {
+    console.log('Mounted');
+  }, []);
+
   return (
-    <Drawer>
-      <DrawerTrigger className="bg-blue-300 p-4 rounded-lg">
-        Vegeta Funko
-      </DrawerTrigger>
+    <Drawer open>
       <DrawerContent className="flex flex-col items-center">
         <DrawerHeader className="flex flex-col items-center space-y-4 ">
           <DrawerTitle className="text-center text-xl font-semibold">
-            Vegeta Funko
+            Vegeta Funko {counter}
           </DrawerTitle>
           <img
             src="https://funko.com/dw/image/v2/BGTS_PRD/on/demandware.static/-/Sites-funko-master-catalog/default/dw8fced24c/images/funko/upload/72093_DBGT_Vegeta_POP_GLAM-WEB.png?sw=800&sh=800"
@@ -32,9 +36,11 @@ const ShoppingCartDrawer = () => {
         </DrawerHeader>
 
         <DrawerFooter className="flex w-full space-x-2 mt-4">
-          <Button className="flex-grow">Add to cart</Button>
+          <Button className="flex-grow" onClick={() => setCounter(counter + 1)}>
+            Add to cart
+          </Button>
           <DrawerClose>
-            <Button variant="outline" className="flex-grow">
+            <Button onClick={onClose} variant="outline" className="flex-grow">
               Cancel
             </Button>
           </DrawerClose>
