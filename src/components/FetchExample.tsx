@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-export interface Response {
+interface Response {
   userId: number;
   id: number;
   title: string;
@@ -12,8 +12,31 @@ export interface Response {
 // url: 'https://jsonplaceholder.typicode.com/posts'
 
 const FetchExample = () => {
-  const [posts] = useState<Response[]>();
-  const [loading] = useState(true);
+  const [posts, setPosts] = useState<Response[]>();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // fetch('https://jsonplaceholder.typicode.com/posts')
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((data) => setPosts(data))
+    //   .catch((e) => console.log(e));
+
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(
+          'https://jsonplaceholder.typicode.com/posts'
+        );
+        const data = await response.json();
+        setPosts(data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchPosts();
+  }, []);
 
   if (loading) {
     return (

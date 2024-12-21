@@ -1,16 +1,7 @@
-import { useState } from 'react';
-import ShoppingCartDrawer from './components/ShoppingCartDrawer';
-import { Button } from './components/ui/button';
+import FetchExample from './components/FetchExample';
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Vegeta Funko</Button>
-
-      {isOpen && <ShoppingCartDrawer onClose={() => setIsOpen(false)} />}
-    </>
-  );
+  return <FetchExample />;
 }
 
 export default App;
