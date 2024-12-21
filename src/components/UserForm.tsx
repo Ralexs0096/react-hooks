@@ -2,8 +2,25 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 
 const UserForm = () => {
+  const [info, setInfo] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    phone: ''
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target;
+
+    setInfo({
+      ...info,
+      [name]: value
+    });
+  };
+
   return (
     <Card className="max-w-lg mx-auto p-6 space-y-6">
       <CardHeader>
@@ -12,16 +29,16 @@ const UserForm = () => {
         </CardTitle>
         <div className="space-y-2">
           <p className="text-gray-700">
-            <strong>First Name:</strong> Alexander
+            <strong>First Name:</strong> {info.name}
           </p>
           <p className="text-gray-700">
-            <strong>Last Name:</strong> Ruiz
+            <strong>Last Name:</strong> {info.lastName}
           </p>
           <p className="text-gray-700">
-            <strong>Email:</strong> ralexs.acu@gmail.com
+            <strong>Email:</strong> {info.email}
           </p>
           <p className="text-gray-700">
-            <strong>Phone:</strong> 87654321
+            <strong>Phone:</strong> {info.phone}
           </p>
         </div>
       </CardHeader>
@@ -30,39 +47,43 @@ const UserForm = () => {
         <div className="space-y-2">
           <Label htmlFor="firstName">First Name</Label>
           <Input
-            id="firstName"
+            id="name"
+            name="name"
             placeholder="Enter your first name"
-            value={''}
-            onChange={() => undefined}
+            value={info.name}
+            onChange={handleChange}
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="lastName">Last Name</Label>
           <Input
             id="lastName"
+            name="lastName"
             placeholder="Enter your last name"
-            value={''}
-            onChange={() => undefined}
+            value={info.lastName}
+            onChange={handleChange}
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
+            name="email"
             placeholder="Enter your email"
             type="email"
-            value={''}
-            onChange={() => undefined}
+            value={info.email}
+            onChange={handleChange}
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="phone">Phone</Label>
           <Input
             id="phone"
+            name="phone"
             placeholder="Enter your phone number"
             type="tel"
-            value={''}
-            onChange={() => undefined}
+            value={info.phone}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <Button className="w-full mt-4">Submit</Button>

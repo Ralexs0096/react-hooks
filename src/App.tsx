@@ -1,7 +1,7 @@
-import FetchExample from './components/FetchExample';
+import UserForm from './components/UserForm';
 
 function App() {
-  return <FetchExample />;
+  return <UserForm />;
 }
 
 export default App;
