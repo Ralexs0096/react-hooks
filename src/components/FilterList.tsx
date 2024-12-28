@@ -1,32 +1,33 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
 import { Button } from './ui/button';
 
-const filteredCounter = 0;
+// const filteredCounter = 0;
 
 const FilterList = () => {
   const [counter, setCounter] = useState(5);
   const [filter, setFilter] = useState('');
-  const fruits = useMemo(() => {
-    return [
-      'Apple',
-      'Banana',
-      'Cherry',
-      'Fig',
-      'Grape',
-      'Kiwi',
-      'Lemon',
-      'Mango',
-      'Orange'
-    ];
-  }, []);
+  const [fruits, setFruits] = useState([
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Fig',
+    'Grape',
+    'Kiwi',
+    'Lemon',
+    'Mango'
+  ]);
 
   const filteredFruits = useMemo(() => {
     return fruits.filter((fruit) => {
       return fruit.toLowerCase().includes(filter.toLowerCase());
     });
   }, [filter, fruits]);
+
+  const addFruit = useCallback(() => {
+    setFruits((prev) => [...prev, `New fruit (${prev.length + 1})`]);
+  }, []);
 
   return (
     <div className="p-4 space-y-4">
@@ -62,13 +63,10 @@ const FilterList = () => {
             className="w-full"
           />
         </CardContent>
+        <Button variant="outline" onClick={addFruit}>
+          Add new Fruit
+        </Button>
       </Card>
-
-      <div className="mt-4">
-        <p className="text-gray-600">
-          Filter function called: <strong>{filteredCounter}</strong> times
-        </p>
-      </div>
 
       <Card>
         <CardHeader>
