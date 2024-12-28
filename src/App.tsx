@@ -1,15 +1,7 @@
-import { useState } from 'react';
-import MousePosition from './components/MousePosition';
-import { Button } from './components/ui/button';
+import FilterList from './components/FilterList';
 
 function App() {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(false)}>unmount</Button>
-      {isOpen && <MousePosition />}
-    </>
-  );
+  return <FilterList />;
 }
 
 export default App;
