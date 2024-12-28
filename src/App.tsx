@@ -1,7 +1,7 @@
-import FilterList from './components/FilterList';
+import UserForm from './components/UserForm';
 
 function App() {
-  return <FilterList />;
+  return <UserForm />;
 }
 
 export default App;

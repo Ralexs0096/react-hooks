@@ -2,9 +2,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const UserForm = () => {
+  const infoRef = useRef({
+    name: 'Giuliana',
+    lastName: 'Leon',
+    email: 'gleon@test.com',
+    phone: '87654321'
+  });
+
   const [info, setInfo] = useState({
     name: '',
     lastName: '',
@@ -18,6 +25,15 @@ const UserForm = () => {
     setInfo({
       ...info,
       [name]: value
+    });
+  };
+
+  const defineDefaultValues = () => {
+    setInfo({
+      name: infoRef.current.name,
+      phone: infoRef.current.phone,
+      email: infoRef.current.email,
+      lastName: infoRef.current.lastName
     });
   };
 
@@ -87,6 +103,9 @@ const UserForm = () => {
           />
         </div>
         <Button className="w-full mt-4">Submit</Button>
+        <Button className="w-full mt-4" onClick={defineDefaultValues}>
+          Set Default values
+        </Button>
       </CardContent>
     </Card>
   );
