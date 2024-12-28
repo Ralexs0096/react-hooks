@@ -1,18 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useEffect, useState } from 'react';
+import useCounter from '@/hooks/useCounter';
 
 const PRICE = 15;
 
 const ShoppingCart = () => {
-  const [counter, setCounter] = useState(1);
-
-  useEffect(() => {
-    if (counter <= 0) {
-      setCounter(1);
-    }
-  }, [counter]);
+  const { counter, increment, decrement } = useCounter();
 
   return (
     <Card className="max-w-md mx-auto p-4 shadow-lg">
@@ -32,11 +26,7 @@ const ShoppingCart = () => {
           </div>
         </div>
         <div className="flex items-center space-x-4">
-          <Button
-            variant="outline"
-            onClick={() => setCounter(counter - 1)}
-            className="w-10"
-          >
+          <Button variant="outline" onClick={decrement} className="w-10">
             -
           </Button>
 
@@ -44,20 +34,12 @@ const ShoppingCart = () => {
             type="number"
             name="counter"
             value={counter}
-            onChange={(e) => {
-              const value = parseInt(e.target.value, 10);
-
-              setCounter(value > 0 ? value : 1);
-            }}
+            onChange={undefined}
             className="w-16 text-center"
           />
 
           {/* Method Reference */}
-          <Button
-            variant="outline"
-            onClick={() => setCounter((prev) => prev + 1)}
-            className="w-10"
-          >
+          <Button variant="outline" onClick={increment} className="w-10">
             +
           </Button>
         </div>
